@@ -1,0 +1,23 @@
+{
+  "name": "split",
+  "version": "0.0.0",
+  "description": "Financial Web Application",
+  "main": "main.js",
+  "dependencies": {
+    "babel-register": "^6.23.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seandension26/split.git"
+  },
+  "author": "Sean D.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seandension26/split/issues"
+  },
+  "homepage": "https://github.com/seandension26/split#readme"
+}
