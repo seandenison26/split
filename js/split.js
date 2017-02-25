@@ -2,7 +2,7 @@
 Split Module,
 *****************************************************/
 //creates a new Purchase object
-export default class Purchase  {
+class Purchase  {
 	constructor(id,date,category,vendor,amount) {
 			this.id = id,
 			this.date = date,
@@ -91,3 +91,4 @@ class Split {
 //console.log(totalsString + "\nHouse Total:" + houseTotal + "\nRoomate Share:" + houseTotal/4 + "\n" + //oweString);
 
 }
+export {Split};

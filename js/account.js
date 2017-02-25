@@ -3,10 +3,10 @@ Account Module, Manages the account profile, creation and editiong of splits as 
 ******************************************************************************************************/
 
 
-require('./split.js');
+import {Split} from './split.js';
 let fs = require('fs');
 
-module.exports = class Account {
+export class Account {
     constructor(name,password) {
         this.name = name, this.password = password, this.profile = {}, this.purchases = [];
   }
@@ -22,3 +22,7 @@ module.exports = class Account {
   }
 
 }
+
+let test = new Account("Admin","poop");
+let thisSplit = test.createSplitFromFile('./accounts/admin/splits/January.json');
+console.log(thisSplit);

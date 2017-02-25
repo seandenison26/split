@@ -1,5 +1,6 @@
 require('babel-register');
-require('./account.js');
+import './account.js';
+
 
 var fs = require('fs');
 var Admin = new Account("Admin", "General");
