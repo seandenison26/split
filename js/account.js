@@ -22,5 +22,3 @@ module.exports = class Account {
   }
 
 }
-
-var testSplit = new Split();

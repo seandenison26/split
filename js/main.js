@@ -1,3 +1,4 @@
+require('babel-register');
 require('./account.js');
 
 var fs = require('fs');
