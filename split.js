@@ -1,35 +1,59 @@
 /*****************************************************
 This is a preliminary mock up of the Split module
 *****************************************************/
-class Split {
-	//creates an  instance of the split class as well as creates JSON file
-	constructor(name, title, creator, users, categories, purchases) {
-		this.name = name;
-		this.title = title;
-		this.creator = this.user;
-		this.users = [];
-		this.categories = categories;
+//creates a new Purchase object
+module.exports = class Purchase  {
+	constructor(id,date,category,vendor,amount) {
+			this.id = id,
+			this.date = date,
+			this.category = category,
+			this.vendor = vendor,
+			this.amount = amount;
+	}
+}
+
+//Creates a new user
+module.exports = class Users {
+	constructor(account,purchases) {
+		this.account = account;
 		this.purchases = [];
 	}
-	
-	//adds Purchase to this splits purchases
-	addPurchase() {
-	
+	addPurchase(id,date,category,vendor,amount) {
+		var length = this.purchases.length, purchase = new Purchase(length,date,category,vendor,amount);
+		this.purchases.concat(purchase);
 	}
+}
+
+module.exports = class Split {
+	//creates a Split object as well as creates JSON file
+	constructor(name, title, creator, users, categories, purchases) {
+		this.name = name,
+		this.title = title,
+		this.creator = this.user,
+		this.users = [],
+		this.categories = categories,
+	  this.fileloc = "./users/" + this.creator + "/splits/" + this.name + ".";
+	}
+
 	//saves data to database
-	saveData() {
-	
+	addUser(user) {
+
 	}
 
-	var fileloc = "./users/" + this.creator + "/splits/" + this.name + ;
+	saveData() {
 
-	var thisSplit = require(file),
-    	
-	users = thisSplit.users,
-		
-    	numUsers = Object.keys(users).length;
+	}
+	//  This declares the file path
+  //	var fileloc = "./users/" + this.creator + "/splits/" + this.name + ;
 
-	function totalCategoryPurchases(user, category) {
+	// This requires the file fata
+	// this.thisSplit = require(fileloc)
+
+
+	// This gives us the number of users
+	//numUsers = Object.keys(users).length;
+
+	totalCategoryPurchases(user, category) {
     		var total = 0, values = user.purchases.filter((value) => {return value.category === category;});
     		if (category === "Total")
      		total = user.purchases.reduce((a,b) => {
@@ -40,11 +64,11 @@ class Split {
     		else
       			total = values.reduce((a,b) => {return {amount: a.amount + b.amount}});
     		return Number(total.amount.toFixed(2));
-	}	
+	}
 
-	var totalsString =
-      		Object.keys(users).map((user) =>
-              		{return user + "\n" + thisSplit.categories.map((category) => { return (category + ": " + totalCategoryPurchases(users[user], category) + "\n");})
+	getTotalsString() {
+      	return Object.keys(users).map((user) =>
+              		{return user + "\n" + this.categories.map((category) => { return (category + ": " + totalCategoryPurchases(users[user], category) + "\n");})
             			.join("");})
             			.join("\n"),
 
@@ -59,8 +83,9 @@ class Split {
       		else
         		return (user + " is owed: " + (userTotal - roomateShare).toFixed(2))
     }).join("\n");
+}
 
-
-console.log(totalsString + "\nHouse Total:" + houseTotal + "\nRoomate Share:" + houseTotal/4 + "\n" + oweString);
+//Original call
+//console.log(totalsString + "\nHouse Total:" + houseTotal + "\nRoomate Share:" + houseTotal/4 + "\n" + //oweString);
 
 }

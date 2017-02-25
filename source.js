@@ -1,3 +1,5 @@
+require('./split.js');
+
 var fs = require('fs');
 var Admin = new User("Admin", "General");
 var testSplit = new newSplit(Admin);
@@ -14,7 +16,7 @@ function totalCategoryPurchase(user, category) {
     return total;
 }
 
-function User(name,password) {
+function Account(name,password) {
   this.name = name, this.password = password, this.profile = {}, this.purchases = [];
 }
 
