@@ -4,7 +4,10 @@
   "description": "Financial Web Application",
   "main": "js/main.js",
   "dependencies": {
-    "babel-register": "^6.23.0"
+    "babel-register": "^6.23.0",
+    "express": "^4.15.2",
+    "fs": "0.0.1-security",
+    "mysql": "^2.13.0"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",

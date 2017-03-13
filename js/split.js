@@ -1,48 +1,41 @@
 /*****************************************************
-Split Module,
+This is a preliminary mock up of the Split module
 *****************************************************/
 //creates a new Purchase object
-class Purchase  {
-	constructor(id,date,category,vendor,amount) {
+export class Purchase  {
+	constructor(id,date,category,vendor,amount,user_id,split_id) {
 			this.id = id,
 			this.date = date,
 			this.category = category,
 			this.vendor = vendor,
 			this.amount = amount;
+			this.user_id = user_id;
+			this.split_id = split_id;
+
 	}
 }
 
 //Creates a new user
-class Users {
-	constructor(account,purchases) {
-		this.account = account;
+export class Users {
+	constructor(user_id,purchases) {
+		this.user_id = user_id;
 		this.purchases = [];
 	}
 	addPurchase(id,date,category,vendor,amount) {
 		var length = this.purchases.length, purchase = new Purchase(length,date,category,vendor,amount);
-		this.purchases.concat(purchase);
+		this.purchases = this.purchases.concat(purchase);
 	}
 }
 
-class Split {
-	//creates a Split object as well as creates JSON file
-	constructor(title, creator, users, categories) {
+//creates a Split object
+export class Split {
+	constructor(title, creator, users, categories, purchases) {
 		this.title = title,
-		this.creator = this.account,
-		this.users = users || this.user,
-		this.categories = categories,
-	  this.fileloc = "./accounts/" + this.creator + "/splits/" + this.name + ".";
+		this.creator = creator,
+		this.users = users,
+		this.categories = categories
 	}
 
-	//saves data to database
-	addUser(user) {
-		this.users.concat(user);
-	}
-
-	//  This declares the file path
-  //	var fileloc = "./users/" + this.creator + "/splits/" + this.name + ;
-
-	// This gives us the number of users
 	getNumUsers () {
 		return this.users.length;
 	}
@@ -65,30 +58,27 @@ class Split {
               		{return user + "\n" + this.categories.map((category) => { return (category + ": " + totalCategoryPurchases(users[user], category) + "\n");})
             			.join("");})
             			.join("\n");
-  }
+  	}
 
 	getSplitTotals() {
 		return Object.keys(users).map((user) => {return totalCategoryPurchases(users[user],"Total")}).reduce((a,b) => {return a+b}).toFixed(2);
-  }
+  	}
 
-	getUsersShare() {
+	getroomateShare() {
 	  return (getSplitTotals()/getNumUsers()).toFixed(2);
 	}
 
-  getOweString() {
-				let userShare = getUsersShare();
+  	getOweString() {
 				return Object.keys(users).map((user) => {
       		var userTotal = totalCategoryPurchases(users[user],"Total");
-      		if (userTotal <= userShare)
+      		if (userTotal <= roomateShare)
         		return (user + " owes: " + (roomateShare - userTotal).toFixed(2))
       		else
         		return (user + " is owed: " + (userTotal - roomateShare).toFixed(2))
-    }).join("\n");
+    		}).join("\n");
 }
-
 
 //Original call
 //console.log(totalsString + "\nHouse Total:" + houseTotal + "\nRoomate Share:" + houseTotal/4 + "\n" + //oweString);
 
 }
-export {Split};
