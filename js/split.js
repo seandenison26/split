@@ -76,7 +76,7 @@ export class Split {
       		else
         		return (user + " is owed: " + (userTotal - roomateShare).toFixed(2))
     		}).join("\n");
-}
+	}
 
 //Original call
 //console.log(totalsString + "\nHouse Total:" + houseTotal + "\nRoomate Share:" + houseTotal/4 + "\n" + //oweString);

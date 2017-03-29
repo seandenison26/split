@@ -2,6 +2,13 @@
 JS Functions for Returning SQL Quries
 \*********************************************/
 
-module.export = createAccount function(username,password) {
+insertAccount function(username,password) {
 	return "INSERT 
 };
+
+insertSplit function() {
+
+};
+
+insertPurchase function()
+
