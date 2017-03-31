@@ -16,10 +16,10 @@ export class Purchase  {
 }
 
 //Creates a new user
-export class Users {
+export class User {
 	constructor(user_id,purchases) {
 		this.user_id = user_id;
-		this.purchases = [];
+		this.purchases = purchases;
 	}
 	addPurchase(id,date,category,vendor,amount) {
 		var length = this.purchases.length, purchase = new Purchase(length,date,category,vendor,amount);
@@ -29,7 +29,7 @@ export class Users {
 
 //creates a Split object
 export class Split {
-	constructor(title, creator, users, categories, purchases) {
+	constructor(title, creator, users, categories) {
 		this.title = title,
 		this.creator = creator,
 		this.users = users,

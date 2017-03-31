@@ -4,6 +4,7 @@
   "description": "Financial Web Application",
   "main": "js/main.js",
   "dependencies": {
+    "babel-cli": "^6.24.0",
     "babel-register": "^6.23.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
@@ -17,7 +18,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "babel --presets es2015 -d ./lib ./js"
+    "compilejs": "babel --presets es2015 -d ./lib ./js",
+    "babel-version": "babel --version"
   },
   "repository": {
     "type": "git",

@@ -13,6 +13,8 @@ app.use('/',router);
 //sets the location of static files
 app.use(express.static(__dirname + '/views'));
 
+//uses body parser to parse all routes
+app.use(bodyParser());
 
 //allow server to run despite collecting an uncaught exception:
 process.on('uncaughtException', function (err) {
