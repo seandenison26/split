@@ -35,11 +35,14 @@ export class Split {
 		this.users = users,
 		this.categories = categories
 	}
-
+	
+	//helper function to return the number of users
 	getNumUsers () {
 		return this.users.length;
 	}
+	
 
+	//takes in a user and returns the total amount purchased for a given category. The total amount of all categories will be returned if "Total" os provided as the category.
 	totalCategoryPurchases(user, category) {
     		var total = 0, values = user.purchases.filter((value) => {return value.category === category;});
     		if (category === "Total")
@@ -52,32 +55,43 @@ export class Split {
       			total = values.reduce((a,b) => {return {amount: a.amount + b.amount}});
     		return Number(total.amount.toFixed(2));
 	}
-
+	
+	//returns a string for each user showing how each user spent on each category
 	getCategTotalsString() {
-      	return Object.keys(users).map((user) =>
-              		{return user + "\n" + this.categories.map((category) => { return (category + ": " + totalCategoryPurchases(users[user], category) + "\n");})
+      	return Object.keys(this.users).map((user) =>
+              		{return user + "\n" + this.categories.map((category) => { return (category + ": " + this.totalCategoryPurchases(this.users[user], category) + "\n");})
             			.join("");})
             			.join("\n");
   	}
-
+	
+	//returns the total of all purchases amounts in the Split
 	getSplitTotals() {
-		return Object.keys(users).map((user) => {return totalCategoryPurchases(users[user],"Total")}).reduce((a,b) => {return a+b}).toFixed(2);
+		return Object.keys(this.users).map((user) => {return this.totalCategoryPurchases(this.users[user],"Total")}).reduce((a,b) => {return a+b}).toFixed(2);
   	}
 
-	getroomateShare() {
-	  return (getSplitTotals()/getNumUsers()).toFixed(2);
+	//returns the Split Total Amount divided by the number of users.
+	getUserShare() {
+	  return (this.getSplitTotals()/this.getNumUsers()).toFixed(2);
 	}
 
+	//Calculates how much each user is owed or owes the Split. 
   	getOweString() {
-				return Object.keys(users).map((user) => {
-      		var userTotal = totalCategoryPurchases(users[user],"Total");
-      		if (userTotal <= roomateShare)
-        		return (user + " owes: " + (roomateShare - userTotal).toFixed(2))
+				return Object.keys(this.users).map((user) => {
+      		var userTotal = this.totalCategoryPurchases(this.users[user],"Total"),
+		userShare = this.getUserShare();
+      		
+		if (userTotal <= userShare)
+        		return (user + " owes: " + (userShare - userTotal).toFixed(2))
       		else
-        		return (user + " is owed: " + (userTotal - roomateShare).toFixed(2))
+        		return (user + " is owed: " + (userTotal - userShare).toFixed(2))
     		}).join("\n");
 	}
+	
 
+	//Returns a string that contains a formatted list of the users individual total amounts by category, the amount of the Split, and the owe String. 
+	getSplitString() {
+		return ("Category Totals:" + this.getCategTotalsString() + "\nSplit Total:" + this.getSplitTotals() + "\nUser Share:" + this.getSplitTotals()/4 + "\n" + this.getOweString());
+	}
 //Original call
 //console.log(totalsString + "\nHouse Total:" + houseTotal + "\nRoomate Share:" + houseTotal/4 + "\n" + //oweString);
 
