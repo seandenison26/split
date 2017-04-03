@@ -3,13 +3,13 @@ This is a preliminary mock up of the Split module
 *****************************************************/
 //creates a new Purchase object
 export class Purchase  {
-	constructor(id,date,category,vendor,amount,user_id,split_id) {
+	constructor(id,date,category,vendor,amount,username,split_id) {
 			this.id = id,
 			this.date = date,
 			this.category = category,
 			this.vendor = vendor,
 			this.amount = amount;
-			this.user_id = user_id;
+			this.username = username;
 			this.split_id = split_id;
 
 	}
@@ -17,14 +17,16 @@ export class Purchase  {
 
 //Creates a new user
 export class User {
-	constructor(user_id,purchases) {
-		this.user_id = user_id;
+	constructor(username,purchases) {
+		this.username = username;
 		this.purchases = purchases;
 	}
+	//add a purchase to the user
 	addPurchase(id,date,category,vendor,amount) {
 		var length = this.purchases.length, purchase = new Purchase(length,date,category,vendor,amount);
 		this.purchases = this.purchases.concat(purchase);
 	}
+
 }
 
 //creates a Split object
@@ -37,9 +39,11 @@ export class Split {
 	}
 	
 	//helper function to return the number of users
-	getNumUsers () {
+	getNumUsers() {
 		return this.users.length;
 	}
+
+
 	
 
 	//takes in a user and returns the total amount purchased for a given category. The total amount of all categories will be returned if "Total" os provided as the category.
@@ -59,7 +63,7 @@ export class Split {
 	//returns a string for each user showing how each user spent on each category
 	getCategTotalsString() {
       	return Object.keys(this.users).map((user) =>
-              		{return user + "\n" + this.categories.map((category) => { return (category + ": " + this.totalCategoryPurchases(this.users[user], category) + "\n");})
+              		{return this.users[user].username + "\n" + this.categories.map((category) => { return (category + ": " + this.totalCategoryPurchases(this.users[user], category) + "\n");})
             			.join("");})
             			.join("\n");
   	}
@@ -81,9 +85,9 @@ export class Split {
 		userShare = this.getUserShare();
       		
 		if (userTotal <= userShare)
-        		return (user + " owes: " + (userShare - userTotal).toFixed(2))
+        		return (this.users[user].username + " owes: " + (userShare - userTotal).toFixed(2));
       		else
-        		return (user + " is owed: " + (userTotal - userShare).toFixed(2))
+        		return (this.users[user].username + " is owed: " + (userTotal - userShare).toFixed(2));
     		}).join("\n");
 	}
 	
@@ -92,7 +96,5 @@ export class Split {
 	getSplitString() {
 		return ("Category Totals:" + this.getCategTotalsString() + "\nSplit Total:" + this.getSplitTotals() + "\nUser Share:" + this.getSplitTotals()/4 + "\n" + this.getOweString());
 	}
-//Original call
-//console.log(totalsString + "\nHouse Total:" + houseTotal + "\nRoomate Share:" + houseTotal/4 + "\n" + //oweString);
 
 }

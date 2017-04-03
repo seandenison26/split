@@ -6,6 +6,7 @@
   "dependencies": {
     "babel-cli": "^6.24.0",
     "babel-register": "^6.23.0",
+    "babel-watch": "^2.0.6",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "fs": "0.0.1-security",
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compilejs": "babel --presets es2015 -d ./lib ./js",
+    "compile": "babel --presets es2015 -d  ./lib ./js",
     "babel-version": "babel --version"
   },
   "repository": {
