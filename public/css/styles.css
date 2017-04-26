@@ -7,3 +7,7 @@ body {
 #nav-bar {
 	display:inline;
 }
+#welcome-bar {
+	background-color:#ffffff;
+	width: 25%;
+}

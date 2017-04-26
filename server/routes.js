@@ -18,13 +18,15 @@ module.exports = router;
 
 // routes index.html when get request is made to main host
 router.get('/', function(req, res) {
-	res.sendFile(path.join(rootDir, 'index.html'), function(err) {
+	res.render('index', function(err) {
+
 	if(err) { 
 		console.log(err);
 	}
 	else
 		console.log("Index HTML Sent!")
 	});
+
 });
 
 //posts a login request and returns an Account Data json file if username and password match
