@@ -14,20 +14,13 @@ var router = express.Router();
 
 var rootDir = __dirname + '/../' 
 
-module.exports = router;
 
 // routes index.html when get request is made to main host
 router.get('/', function(req, res) {
-	res.render('index', function(err) {
-
-	if(err) { 
-		console.log(err);
-	}
-	else
-		console.log("Index HTML Sent!")
-	});
-
+	res.render('pages/index');
 });
+
+
 
 //posts a login request and returns an Account Data json file if username and password match
 router.post('/accountLogin', function(req, res) {
@@ -90,4 +83,4 @@ router.put('/updateSplit', function(req,res) {
 });
 
 
-
+module.exports = router;
