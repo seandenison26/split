@@ -31,27 +31,6 @@ fs.readFile(filepath + '.json', 'utf8', function(err,data) {
 });
 
 function buildSplitfromJSON (data) {
-	let file = JSON.parse(data),
-	title = file.title,
-	categories = file.categories,
-	
-	users = Object.keys(file.users);
-	
-	console.log(users);
-	      
-	users = users.map((user) => {
-				let purchases = file.users[user].purchases.map((p) => {return new Purchase('NA',p.date,p.category,p.vendor,p.amount,user);})
-				return new User (user,purchases);     
-				     });
-	  
-	return new Split(title, "Ziggy", users, categories);
-}
-
-
-
-
-
-function buildSplitfromJSON (data) {
     let file = JSON.parse(data),
     title = file.title,
     categories = file.categories;

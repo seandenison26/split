@@ -2,13 +2,21 @@
 JS Functions for Returning SQL Quries
 \*********************************************/
 
-insertAccount function(username,password) {
-	return "INSERT 
-};
+queries.INSERT = function(table) {
+	return "INSERT INTO " + table + "SET ?"; 
+}
 
-insertSplit function() {
+queries.SELECT = function() {
 
-};
+}
 
-insertPurchase function()
+queries.UPDATE = function() {
+
+}
+
+
+queries.DELETE = function() {
+
+}
+
 
