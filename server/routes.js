@@ -23,10 +23,10 @@ router.get('/', function(req, res) {
 
 
 //posts a login request and returns an Account Data json file if username and password match
-router.post('/accountLogin', function(req, res) {
+router.post('api/accountLogin/:username/:password', function(req, res) {
 	let 
-	username = req.username,
-	password = req.password;
+	username = req.params.username,
+	password = req.params.password;
 
 	REST.clientLogin(username,password)
 		.then(REST.buildAccountData)
@@ -36,7 +36,7 @@ router.post('/accountLogin', function(req, res) {
 
 
 //logs a json list of all Account usernames 
-router.get('/accountList', function(req, res) {
+router.get('api/accountList', function(req, res) {
 	db.query("SELECT usernames from Account", function(err,rows) {
 		if (err) {
 		console.log(err);
@@ -50,7 +50,7 @@ router.get('/accountList', function(req, res) {
 
 
 //posts a new Account to the database and returns an Account data json file
-router.post('/createAccount', function(req, res) {
+router.post('api/createAccount', function(req, res) {
 	// parse account values for db
 	let 
 		username = req.username,
@@ -67,18 +67,18 @@ router.post('/createAccount', function(req, res) {
 
 
 //posts a new Split to the database
-router.post('/createSplit', function(req, res) {
+router.post('api/createSplit', function(req, res) {
 
 });
 
 
 //posts a new Purchase to the database
-router.get('/createPurchase', function(req, res) {
+router.get('api/createPurchase', function(req, res) {
 
 });
 
 //updates a Split
-router.put('/updateSplit', function(req,res) {
+router.put('api/updateSplit', function(req,res) {
 
 });
 

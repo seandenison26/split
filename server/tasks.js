@@ -18,14 +18,25 @@ tasks.passwordCheck = (givenpassword,accountpassword) => {
 };	
 
 
-//Creates a AccountData JSON file to be sent to the client
+//Creates an accountData JSON file to be sent to the client
 tasks.createAccountData = (un, em, sps) => {
-	let AccountData = {
+	let accountData = {
 		username: un,
 		email: en,
-		splits: sps,
+		splits: sps
 	}
-	return JSON.stringify(AccountData);
+	return JSON.stringify(accountData);
+};
+
+//Creates a splitData JSON file to be sent to the client
+tasks.createSplitData = (title, creator, categories, users) => {
+	let splitData = {
+		title:title,
+		creator: creator,
+		categories: categories,
+		users: users
+	};
+	return JSON.stringify(splitData);
 };
 
 

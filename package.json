@@ -23,7 +23,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "babel --presets es2015 -d  ./lib ./js",
     "watch": "babel-watch /js/localSplit.js",
-    "babel-version": "babel --version"
+    "dev": "nodemon server",
+    "start": "node server"		
   },
   "repository": {
     "type": "git",

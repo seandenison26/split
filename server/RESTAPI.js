@@ -1,13 +1,13 @@
-/*********************\
+/******************\
 CRUD middleware API 
-\*********************/
+SCD
+\******************/
 let 
 	db = require('./mySQLconnect'),
 	tasks = require('./tasks');
 
 let REST = {}; 
 
-module.exports = REST;
 
 //Check the post body to see if the username matches the passwoord. If incorrect returns an error message, else returns an AccountData json file for the client
 REST.clientLogin = function(username, password) {
@@ -41,7 +41,7 @@ REST.buildAccountData = function(username, email) {
 	return new Promise ((res, rej) => {
 	let accountData = {}
 	
-	db.query("SELECT * FROM Accounts WHERE username = ? INNER JOIN ", username, function(err, rows, fields) {
+	db.query("SELECT (split_id) FROM split_users WHERE username = ? INNER JOIN ", [username,email], function(err, rows, fields) {
 		if(err) {
 			rej(err);
 		}
@@ -57,11 +57,14 @@ REST.buildAccountData = function(username, email) {
 
 
 //creates a SplitData json file
-REST.buildSplitData = function (split_id, username){
+REST.buildSplitData = function (split_id){
 	return new Promise ((res, rej) => {
-		let newSplit = {
-			
-		};
+		
+		
+		
+		
+		
+		
 	});
 };
 
@@ -90,40 +93,42 @@ REST.createAccount = function(username,password,email) {
 };
 
 //inserts a new Split into the databse
-REST.createSplit = function(title, username) {
+REST.createSplit = function(title, email, username) {
 	return new Promise ((res,rej) => {
-		let newSplit = {
-			title:title,
-			creator:username
-		};
-		
-		db.query("INSERT INTO splits SET ?; SELECT LAST_INSERT_ID();", newSplit, (err, rows) => {
+		let newSplit = [
+			title,
+			email
+		];
+	        	
+		db.query("INSERT INTO splits (title, creator) VALUES (?,(SELECT email FROM accounts WHERE email = ?));",newSplit, (err, rows) => {
 			if(err) {
 				rej(err);
 			}
 			else {
-			let split_id = rows[0].split_id;
-			RESTAPI.addUsertoSplit(split_id, username);	
-			res(split_id,username); 
+			let split_id = rows.insertId;
+			REST.addUsertoSplit(split_id, username).then((split_id,username) => res(split_id,title,username));	
 			}
 		});
 	});
 };
 
 //inserts a user-split pairing to the db
-REST.addUsertoSplit = function(split_id, username) {
-	 
-	let addUser = {
-		split_id: split_id,
-		username: username
-	};
-	db.query("INSERT INTO split_users SET ?;", addUser, (err, rows) => {
+REST.addUsertoSplit = function(split_id, username, email) {
+
+ return new Promise ((res, rej) => {
+	let addUser = [
+		split_id,
+		username
+	];
+	db.query("INSERT INTO split_users VALUES ((SELECT split_id from splits WHERE split_id = ?),(SELECT username FROM accounts WHERE username = ?))", addUser, (err, rows) => {
 		if(err) {
 			rej(err);
 		}
 		else {
 			console.log(username + "succesfully added to Split:"  + split_id);
+			res(split_id, username);
 		}
+	});
 	});
 };
 
@@ -143,6 +148,7 @@ REST.update = function() {
 };
 
 
+module.exports = REST;
 
 
 
