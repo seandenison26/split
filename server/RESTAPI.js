@@ -39,19 +39,22 @@ REST.clientLogin = function(username, password) {
 REST.buildAccountData = function(username, email) {
 	
 	return new Promise ((res, rej) => {
-	let accountData = {}
+
 	
-	db.query("SELECT (split_id) FROM split_users WHERE username = ? INNER JOIN ", [username,email], function(err, rows, fields) {
+	db.query("SELECT * FROM split_users INNER JOIN  splits ON splits.split_id = split_users.split_id WHERE username = ?",username, function(err, rows, fields) {
 		if(err) {
 			rej(err);
 		}
 		else {
-			let data = rows;
-			accountData = tasks.createAccountData(data);    
+			let splits = rows.map((row) => {
+				return {title: row.title, id: row.split_id};	
+			
+			});
+			let accountData = tasks.createAccountData(username, email, splits);    
 			res(accountData);
 		}
 	});  
-	console.log(accountData);
+	
 	});
 };
 
