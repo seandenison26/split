@@ -3,3 +3,6 @@ node-modules/
 
 #vim swp files
 *.swp
+
+#lint file
+.eslint
