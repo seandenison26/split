@@ -3,7 +3,7 @@ var REST = require('./RESTAPI');
 var tasks = require('./tasks');
 var router = require('./routes');
 
-REST.buildAccountData("Admin", "sean.denison26@gmail.com").then((data) => {console.log(data)});
+REST.addSplitCategory(7,"groceries").then((cat, cat_id) => {console.log(cat + " " + cat_id)});
 
 db.end();
 

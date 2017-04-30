@@ -135,6 +135,23 @@ REST.addUsertoSplit = function(split_id, username, email) {
 	});
 };
 
+//adds a category to categories table 
+REST.addSplitCategory = function(split_id, category) {
+	return new Promise ((res, rej) => {
+	
+	db.query("INSERT INTO categories(category, split_id) VALUES (?, (SELECT split_id FROM splits WHERE split_id = ?))",[category,split_id], (err, rows) => {
+		if(err) {
+			rej(err);
+	}
+	else {
+		let cat_id = rows.insertId;
+		console.log("Category: " + category + " added to Split #" + split_id);
+		res(category,cat_id);
+	}
+
+	});
+	});
+};
 //removes a user from a split user
 
 //adds a category to split
