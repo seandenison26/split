@@ -7,7 +7,15 @@ body {
 #nav-bar {
 	display:inline;
 }
+
 #welcome-bar {
+	text-align: center;
 	background-color:#ffffff;
-	width: 25%;
+	border-radius: 25px;
 }
+
+#footer {
+	text-align: center;
+}
+
+

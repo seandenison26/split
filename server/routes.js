@@ -18,6 +18,7 @@ var rootDir = __dirname + '/../'
 // routes index.html when get request is made to main host
 router.get('/', function(req, res) {
 	res.render('pages/index');
+	console.log("Index Sent!")
 });
 
 
