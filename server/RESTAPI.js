@@ -15,14 +15,14 @@ REST.clientLogin = (username, password) => {
 	db.query("SELECT * FROM accounts WHERE username = ?;", username, function(err,rows) {
 			
 			if (err) {
-				rej(error);
+				rej(err);
 			}
 			else {
 				let
 				selectedPass = rows[0].password,
 				selectedEmail = rows[0].email;
 			
-				if(tasks.passwordChecks(password,selectedPass)) {
+				if(tasks.passwordCheck(password,selectedPass)) {
 					let accountObj = tasks.createAccountObj(username, selectedEmail);
 					res(accountObj);
 				}		
@@ -43,7 +43,6 @@ REST.updateAccountEmail = (email,password) => {};
 REST.buildAccountJSON = function(accountObj) {
 	
 	return new Promise ((res, rej) => {
-
 	
 	db.query("SELECT * FROM split_users INNER JOIN  splits ON splits.split_id = split_users.split_id WHERE username = ?",accountObj.username, function(err, rows, fields) {
 		if(err) {

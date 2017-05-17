@@ -24,7 +24,7 @@ router.get('/', function(req, res) {
 
 
 //posts a login request and returns an Account Data json file if username and password match
-router.post('api/accountLogin/:username/:password', function(req, res) {
+router.get('/api/accountLogin/:username/:password', function(req, res) {
 	let 
 	username = req.params.username,
 	password = req.params.password;
@@ -32,7 +32,6 @@ router.post('api/accountLogin/:username/:password', function(req, res) {
 	REST.clientLogin(username,password)
 		.then(REST.buildAccountJSON)
 		.then((data) => res.end(data))
-		.catch(res.send(err));
 });
 
 

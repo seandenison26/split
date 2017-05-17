@@ -1,5 +1,6 @@
+.gitignore
 # Node modules
-node-modules/
+node-modules
 #vim swp files
 *.swp
 *.swo
