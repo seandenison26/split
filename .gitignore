@@ -2,10 +2,9 @@
 node-modules/
 #vim swp files
 *.swp
-
+*.swo
 #lint file
 .eslint
 
-node_modules/
-
+lib/
 

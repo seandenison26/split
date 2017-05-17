@@ -1,4 +1,6 @@
-
+html {
+	height: 100%;
+}
 body {
 	background-color:#d9ffb3;
 	color:#004d00;
@@ -15,6 +17,7 @@ body {
 }
 
 #footer {
+	position: relative;
 	text-align: center;
 }
 
