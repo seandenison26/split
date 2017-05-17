@@ -10,7 +10,7 @@ let REST = {};
 
 
 //Check the post body to see if the username matches the passwoord. If incorrect returns an error message, else returns an AccountData json file for the client
-REST.clientLogin = function(username, password) {
+REST.clientLogin = (username, password) => {
 	return new Promise ((res, rej) => {
 	db.query("SELECT * FROM accounts WHERE username = ?;", username, function(err,rows) {
 			
@@ -23,7 +23,8 @@ REST.clientLogin = function(username, password) {
 				selectedEmail = rows[0].email;
 			
 				if(tasks.passwordChecks(password,selectedPass)) {
-					res(username, selectedEmail);
+					let accountObj = tasks.createAccountObj(username, selectedEmail);
+					res(accountObj);
 				}		
 				else {
 					rej("Username and password do not match.");
@@ -34,14 +35,17 @@ REST.clientLogin = function(username, password) {
 
 };
 
+//updates an account email
+REST.updateAccountEmail = (email,password) => {};
+
 //creates and returns an AccountData json file 
 //add innerjoin to query
-REST.buildAccountData = function(username, email) {
+REST.buildAccountJSON = function(accountObj) {
 	
 	return new Promise ((res, rej) => {
 
 	
-	db.query("SELECT * FROM split_users INNER JOIN  splits ON splits.split_id = split_users.split_id WHERE username = ?",username, function(err, rows, fields) {
+	db.query("SELECT * FROM split_users INNER JOIN  splits ON splits.split_id = split_users.split_id WHERE username = ?",accountObj.username, function(err, rows, fields) {
 		if(err) {
 			rej(err);
 		}
@@ -50,7 +54,7 @@ REST.buildAccountData = function(username, email) {
 				return {title: row.title, id: row.split_id};	
 			
 			});
-			let accountData = tasks.createAccountData(username, email, splits);    
+			let accountData = tasks.createAccountJSON(accountObj.username, accountObj.email, splits);    
 			res(accountData);
 		}
 	});  
@@ -88,7 +92,8 @@ REST.createAccount = function(username,password,email) {
 			}
 			else {
 				console.log("Account keyed to " + newAccount.username + "successfully created.");
-				res(username, email);
+				let accountObj = tasks.createAccountObj(username, email)
+				res(accountObj);
 			}
 	
 		});

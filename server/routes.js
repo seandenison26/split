@@ -30,7 +30,7 @@ router.post('api/accountLogin/:username/:password', function(req, res) {
 	password = req.params.password;
 
 	REST.clientLogin(username,password)
-		.then(REST.buildAccountData)
+		.then(REST.buildAccountJSON)
 		.then((data) => res.end(data))
 		.catch(res.send(err));
 });

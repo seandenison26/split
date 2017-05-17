@@ -17,13 +17,21 @@ tasks.passwordCheck = (givenpassword,accountpassword) => {
 		}
 };	
 
-
-//Creates an accountData JSON file to be sent to the client
-tasks.createAccountData = (un, em, sps) => {
+//Creates an AccountData Object to be used by API
+tasks.createAccountObj = (username, email) => {
 	let data = {
-		username: un,
-		email: em,
-		splits: sps
+		username: username,
+		email: email
+	}
+	return data;
+};
+
+//Creates an Account Data JSON file to be sent to the client
+tasks.createAccountJSON = (username, email, splits) => {
+	let data = {
+		username: username,
+		email: email,
+		splits: splits
 	};
 	return JSON.stringify(data);
 };
